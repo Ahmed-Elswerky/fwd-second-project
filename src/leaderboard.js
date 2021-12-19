@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { Grid, IconButton, Button, Link, Avatar, CssBaseline, AppBar, Box, Toolbar, Paper, Typography, Container, Stack, Card } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  Button,
+  Link,
+  Avatar,
+  CssBaseline,
+  AppBar,
+  Box,
+  Toolbar,
+  Paper,
+  Typography,
+  Container,
+  Stack,
+  Card,
+} from "@mui/material";
 // import MenuIcon from '@mui/icons-material/Menu';
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -13,7 +28,7 @@ import { userChange, loggedInChange, questionChange } from "./actions/";
 import { _getUsers, _getQuestions } from "./data";
 import { Link as Route } from "react-router-dom";
 import Appbar from "./appbar";
-import QuestionView from './questionView'
+import QuestionView from "./questionView";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -54,47 +69,65 @@ function LeaderBoard() {
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
-      <Appbar users={users} loggedIn={loggedIn} leaderboard={true}/>
+      <Appbar users={users} loggedIn={loggedIn} leaderboard={true} />
       <main>
         <Box
           sx={{
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
-          }}>
+          }}
+        >
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="text.primary" gutterBottom>
               Leader Board
             </Typography>
           </Container>
-          {Object?.keys(users).map((e,k) => {
-            let user = users[e];
+          {Object?.keys(users)
+            .sort(
+              (a, b) =>
+                users[b].questions.length +
+                Object.keys(users[b].answers).length -
+                (users[a].questions.length + Object.keys(users[a].answers).length)
+            )
+            .map((e, k) => {
+              let user = users[e];
               return (
                 <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
                   <Card>
-                      <Typography component="h6" style={{margin:'1rem'}} variant="h5" align="left" color="text.primary" gutterBottom>
-                        <Avatar alt="Remy Sharp" style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }} src={user?.avatarURL} />
+                    <Typography
+                      component="h6"
+                      style={{ margin: "1rem" }}
+                      variant="h5"
+                      align="left"
+                      color="text.primary"
+                      gutterBottom
+                    >
+                      <Avatar
+                        alt="Remy Sharp"
+                        style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }}
+                        src={user?.avatarURL}
+                      />
 
-                        <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{user.name}</div>
-                      </Typography>
-                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                        Answered Questions : {Object.keys(user.answers).length||0}
-                      </Typography>
-                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                        Created Questions : {user.questions.length||0}
-                      </Typography>
-                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                        Score : {user.questions.length+Object.keys(user.answers).length||0}
-                      </Typography>
-                      
+                      <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{user.name}</div>
+                    </Typography>
+                    <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                      Answered Questions : {Object.keys(user.answers).length || 0}
+                    </Typography>
+                    <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                      Created Questions : {user.questions.length || 0}
+                    </Typography>
+                    <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                      Score : {user.questions.length + Object.keys(user.answers).length || 0}
+                    </Typography>
                   </Card>
                 </Container>
               );
-          })}
+            })}
         </Box>
       </main>
     </ThemeProvider>
   );
 }
 
-export default LeaderBoard 
+export default LeaderBoard;

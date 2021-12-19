@@ -124,7 +124,7 @@ function AddQuestion(props) {
         >
           <Route to={"/"} ref={redirectLink} />
           <Typography component="h1" align="center" variant="h5">
-            Add a Question
+            Add a (Would you Rather) Question
           </Typography>
           <Container maxWidth="sm" key={"add"} style={{ marginTop: "1rem" }}>
             <Card>

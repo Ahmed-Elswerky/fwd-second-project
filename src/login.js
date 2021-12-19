@@ -72,7 +72,7 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: '30vh',
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -82,7 +82,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt:'5vh'  }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Age</InputLabel>
               <Select label="Profile" value={userId} onChange={(e) => setUserId(e.target.value)}>

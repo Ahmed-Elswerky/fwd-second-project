@@ -31,7 +31,7 @@ const drawerWidth = 240;
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function LeaderBoard() {
   const dispatch = useDispatch();
   const [answered, setAnswered] = useState(true);
   const { loggedIn, users, questions } = useSelector((state) => state);
@@ -54,7 +54,7 @@ function DashboardContent() {
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
-      <Appbar users={users} loggedIn={loggedIn} home={true}/>
+      <Appbar users={users} loggedIn={loggedIn} leaderboard={true}/>
       <main>
         <Box
           sx={{
@@ -62,45 +62,33 @@ function DashboardContent() {
             pt: 8,
             pb: 6,
           }}>
-          <Stack style={{padding:'1rem'}} direction="row" spacing={2} justifyContent="start">
-            <Button variant={answered && "outlined"||''} onClick={() => setAnswered(true)}>
-              Answered
-            </Button>
-            <Button variant={!answered && "outlined"||''} onClick={() => setAnswered(false)}>
-              Unanswered
-            </Button>
-          </Stack>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="text.primary" gutterBottom>
-              Would you Rather
+              Leader Board
             </Typography>
           </Container>
-          {Object.keys(questions).map((e,k) => {
-            let question = questions[e];
-            let qUser = users[question.author];
-            if(users!=undefined&&users!=null)
-            if ((answered && Object?.keys(users[loggedIn]?.answers)?.includes(question.id)) || (!answered && !Object?.keys(users[loggedIn].answers).includes(question.id)))
+          {Object?.keys(users).map((e,k) => {
+            let user = users[e];
               return (
-                // <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
-                //   <Card>
-                //     <Paper>
-                //       <Typography component="h6" variant="h5" align="left" color="text.primary" gutterBottom>
-                //         <Avatar alt="Remy Sharp" style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }} src={qUser?.avatarURL} />
+                <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
+                  <Card>
+                      <Typography component="h6" style={{margin:'1rem'}} variant="h5" align="left" color="text.primary" gutterBottom>
+                        <Avatar alt="Remy Sharp" style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }} src={user?.avatarURL} />
 
-                //         <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{qUser.name}</div>
-                //       </Typography>
-                //       <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                //         {question.optionOne.text}
-                //       </Typography>
-                //       <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-                //         <Route to={"/Question/" + question.id}>
-                //           <Button variant="outlined">View Question</Button>
-                //         </Route>
-                //       </Stack>
-                //     </Paper>
-                //   </Card>
-                // </Container>
-                <QuestionView question={question} keyy={k+'mq'} key={k+'mqc'} qUser={qUser} menu={true}/>
+                        <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{user.name}</div>
+                      </Typography>
+                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                        Answered Questions : {Object.keys(user.answers).length||0}
+                      </Typography>
+                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                        Created Questions : {user.questions.length||0}
+                      </Typography>
+                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                        Score : {user.questions.length+Object.keys(user.answers).length||0}
+                      </Typography>
+                      
+                  </Card>
+                </Container>
               );
           })}
         </Box>
@@ -109,6 +97,4 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
-}
+export default LeaderBoard 

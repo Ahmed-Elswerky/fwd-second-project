@@ -14,7 +14,13 @@ function Appbar(props) {
         </Typography>
         <nav style={{marginLeft:'2rem'}}>
           <Route style={{ textDecoration: "none" }} to={"/"}>
-            <Button style={{color:'white'}}>Home</Button>
+            <Button variant={props?.home && "outlined"||''} style={{color:'white',borderColor:'white'}}>Home</Button>
+          </Route>
+          <Route style={{ textDecoration: "none" }} to={"/add-question"}>
+            <Button variant={props?.add && "outlined"||''} style={{color:'white',borderColor:'white'}}>Add Question</Button>
+          </Route>
+          <Route style={{ textDecoration: "none" }} to={"/LeaderBoard"}>
+            <Button variant={props?.leaderboard && "outlined"||''} style={{color:'white',borderColor:'white'}}>LeaderBoard</Button>
           </Route>
         </nav>
         <nav style={{ marginRight: "0", marginLeft: "auto" }}>

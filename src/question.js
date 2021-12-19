@@ -158,7 +158,7 @@ function Question(props) {
       setState({ ...state, id, question, qUser });
     }
   }, []);
-
+  if(loggedIn.length>0)
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
@@ -171,11 +171,12 @@ function Question(props) {
             pt: 8,
             pb: 6,
           }}>
-          <QuestionView question={state.question} keyy={"qp"} qUser={state.qUser} menu={false} />
+          <QuestionView question={state?.question} keyy={"qp"} qUser={state.qUser} menu={false} />
         </Box>
       </main>
     </ThemeProvider>
   );
+  return(<></>)
 }
 
 export default Question;

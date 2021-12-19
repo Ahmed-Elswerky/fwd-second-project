@@ -5,6 +5,8 @@ import Dashboard from "./home";
 import Question from "./question";
 import SignIn from "./login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AddQuestion from './addQuestion';
+import LeaderBoard from './leaderboard';
 // import { browserHistory } from './react-router'
 // import { useSelector, useDispatch } from "react-redux";
 
@@ -29,7 +31,8 @@ function App() {
         <Route exact path="/login" element={<SignIn />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/Question/:id" element={<Question/>}/>
-        {/* <Route path="/LeaderBoard" element={<LeaderBoard/>}/> */}
+        <Route path="/add-question" element={<AddQuestion/>}/>
+        <Route path="/LeaderBoard" element={<LeaderBoard/>}/>
         {/* <Route path="/Add" element={<Add/>}/> */}
       </Routes>
     </Router>

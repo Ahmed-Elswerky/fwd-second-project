@@ -1,3 +1,14 @@
+Firebase hosted Link: https://wyr.web.app/
+
+Description
+The second project in FWD Nanodegree, displaying questions, users from redux and managing it's data
+
+Available Scripts
+In the project directory, you can run:
+
+yarn
+To install the dependencies from the package.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

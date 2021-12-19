@@ -1,4 +1,4 @@
-Firebase hosted Link: https://wyr.web.app/
+Firebase hosted Link: https://wyr-swerky.web.app/
 
 Description
 The second project in FWD Nanodegree, displaying questions, users from redux and managing it's data

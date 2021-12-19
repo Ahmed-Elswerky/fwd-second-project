@@ -93,7 +93,7 @@ function LeaderBoard() {
             .map((e, k) => {
               let user = users[e];
               return (
-                <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
+                <Container maxWidth="sm" key={k+'l'} style={{ marginTop: "1rem" }}>
                   <Card>
                     <Typography
                       component="h6"

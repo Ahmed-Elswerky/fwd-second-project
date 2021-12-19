@@ -10,7 +10,7 @@ function Appbar(props) {
     <AppBar position="relative">
       <Toolbar>
         <Typography variant="h6" color="inherit" noWrap>
-          Album layout
+          W.Y.R..?
         </Typography>
         <nav style={{ marginLeft: "2rem" }}>
           <Route style={{ textDecoration: "none" }} to={"/"}>

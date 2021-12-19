@@ -33,7 +33,7 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const dispatch = useDispatch();
-  const [answered, setAnswered] = useState(true);
+  const [answered, setAnswered] = useState(false);
   const { loggedIn, users, questions } = useSelector((state) => state);
 
   useEffect(() => {

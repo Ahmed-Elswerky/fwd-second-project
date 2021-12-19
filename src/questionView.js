@@ -70,21 +70,35 @@ function QeustionView(props) {
                   style={{ alignSelf: "center" }}
                   value={"optionOne"}
                   control={<Radio />}
-                  label={props.question?.optionOne?.text+(props.question.optionOne.votes.includes(loggedIn)&&' <==Your choice'||'') || ""}
+                  label={
+                    props.question?.optionOne?.text +
+                      ((props.question.optionOne.votes.includes(loggedIn) && " <==Your choice") || "") || ""
+                  }
                 />
                 <Typography variant="small" align="center" color="text.secondary" paragraph>
                   chosed by {props.question?.optionOne?.votes.length} out of{" "}
-                  {props.question?.optionOne?.votes.length + props.question?.optionTwo?.votes.length} votes
+                  {props.question?.optionOne?.votes.length + props.question?.optionTwo?.votes.length} votes,{" "}
+                  {(props.question?.optionOne?.votes.length /
+                    (props.question?.optionOne?.votes.length + props.question?.optionTwo?.votes.length)) *
+                    100}
+                  %
                 </Typography>
                 <FormControlLabel
                   style={{ alignSelf: "center" }}
                   value={"optionTwo"}
                   control={<Radio />}
-                  label={props.question?.optionTwo?.text+(props.question.optionTwo.votes.includes(loggedIn)&&' <==Your choice'||'') || ""}
+                  label={
+                    props.question?.optionTwo?.text +
+                      ((props.question.optionTwo.votes.includes(loggedIn) && " <==Your choice") || "") || ""
+                  }
                 />
                 <Typography variant="small" align="center" color="text.secondary" paragraph>
                   chosed by {props.question?.optionTwo?.votes.length} out of{" "}
-                  {props.question?.optionOne?.votes.length + props.question?.optionTwo?.votes.length} votes
+                  {props.question?.optionOne?.votes.length + props.question?.optionTwo?.votes.length} votes,{" "}
+                  {(props.question?.optionTwo?.votes.length /
+                    (props.question?.optionOne?.votes.length + props.question?.optionTwo?.votes.length)) *
+                    100}
+                  %
                 </Typography>
               </RadioGroup>
             </FormControl>

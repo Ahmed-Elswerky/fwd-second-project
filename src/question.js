@@ -91,22 +91,7 @@
 
 import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Grid,
-  IconButton,
-  Button,
-  Link,
-  Avatar,
-  CssBaseline,
-  AppBar,
-  Box,
-  Toolbar,
-  Paper,
-  Typography,
-  Container,
-  Stack,
-  Card,
-} from "@mui/material";
+import { Grid, IconButton, Button, Link, Avatar, CssBaseline, AppBar, Box, Toolbar, Paper, Typography, Container, Stack, Card } from "@mui/material";
 // import MenuIcon from '@mui/icons-material/Menu';
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -117,7 +102,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { userChange, loggedInChange, questionChange } from "./actions/";
 import { _getUsers, _getQuestions } from "./data";
-import { Link as Route } from "react-router-dom";
+import { Link as Route, useParams } from "react-router-dom";
+import Appbar from "./appbar";
+import QuestionView from "./questionView";
 
 function Copyright(props) {
   return (
@@ -137,6 +124,7 @@ const drawerWidth = 240;
 const mdTheme = createTheme();
 
 function Question(props) {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const [answered, setAnswered] = useState(true);
   const { loggedIn, users, questions } = useSelector((state) => state);
@@ -163,66 +151,27 @@ function Question(props) {
     qUser: {},
   });
   useEffect(() => {
-    let id = props?.match?.params.id || "";
     // if (!id.length > 0) window.location.pathname = "/";
     if (id.length > 0) {
       let question = questions[id];
       let qUser = users[question.author];
       setState({ ...state, id, question, qUser });
-      console.log(id, question, qUser);
     }
-    console.log(props);
   }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
 
-      <AppBar position="relative">
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-          <nav style={{ marginRight: "0", marginLeft: "auto" }}>
-            <Avatar alt="Remy Sharp" src={users[loggedIn]?.avatarURL} />
-          </nav>
-          <Button
-            variant="button"
-            color="text.primary"
-            sx={{ my: 1, mx: 1.5 }}
-            onClick={() => dispatch(loggedInChange(""))}
-          >
-            Log out
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <Appbar users={users} loggedIn={loggedIn} />
       <main>
         <Box
           sx={{
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
-          }}
-        >
-          <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
-            <Card>
-              <Paper>
-                <Typography component="h6" variant="h5" align="left" color="text.primary" gutterBottom>
-                  <Avatar
-                    alt="Remy Sharp"
-                    style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }}
-                    src={state.qUser?.avatarURL}
-                  />
-
-                  <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{state.qUser.name}</div>
-                </Typography>
-                <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                  {state.question?.optionOne?.text}
-                  {state.question?.optionTwo?.text}
-                </Typography>
-              </Paper>
-            </Card>
-          </Container>
+          }}>
+          <QuestionView question={state.question} keyy={"qp"} qUser={state.qUser} menu={false} />
         </Box>
       </main>
     </ThemeProvider>

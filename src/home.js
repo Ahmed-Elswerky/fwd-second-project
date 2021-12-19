@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Grid,
-  IconButton,
-  Button,
-  Link,
-  Avatar,
-  CssBaseline,
-  AppBar,
-  Box,
-  Toolbar,
-  Paper,
-  Typography,
-  Container,
-  Stack,
-  Card,
-} from "@mui/material";
+import { Grid, IconButton, Button, Link, Avatar, CssBaseline, AppBar, Box, Toolbar, Paper, Typography, Container, Stack, Card } from "@mui/material";
 // import MenuIcon from '@mui/icons-material/Menu';
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -26,8 +11,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { userChange, loggedInChange, questionChange } from "./actions/";
 import { _getUsers, _getQuestions } from "./data";
-import { Link as Route} from "react-router-dom";
-
+import { Link as Route } from "react-router-dom";
+import Appbar from "./appbar";
+import QuestionView from './questionView'
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -63,44 +49,24 @@ function DashboardContent() {
     // browserHistory.push('/login')
     if (!loggedIn.length > 0) window.location.pathname = "/login";
     // browserHistory.push('/')
-    console.log("loggedIn has been changes", loggedIn);
   }, [loggedIn]);
 
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
-
-      <AppBar position="relative">
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-          <nav style={{ marginRight: "0", marginLeft: "auto" }}>
-            <Avatar alt="Remy Sharp" src={users[loggedIn]?.avatarURL} />
-          </nav>
-          <Button
-            variant="button"
-            color="text.primary"
-            sx={{ my: 1, mx: 1.5 }}
-            onClick={() => dispatch(loggedInChange(""))}
-          >
-            Log out
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <Appbar users={users} loggedIn={loggedIn} />
       <main>
         <Box
           sx={{
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
-          }}
-        >
-          <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="start">
-            <Button variant={answered && "outlined"} onClick={() => setAnswered(true)}>
+          }}>
+          <Stack style={{padding:'1rem'}} direction="row" spacing={2} justifyContent="start">
+            <Button variant={answered && "outlined"||''} onClick={() => setAnswered(true)}>
               Answered
             </Button>
-            <Button variant={!answered && "outlined"} onClick={() => setAnswered(false)}>
+            <Button variant={!answered && "outlined"||''} onClick={() => setAnswered(false)}>
               Unanswered
             </Button>
           </Stack>
@@ -109,38 +75,31 @@ function DashboardContent() {
               Would you Rather
             </Typography>
           </Container>
-          {Object.keys(questions).map((e) => {
+          {Object.keys(questions).map((e,k) => {
             let question = questions[e];
             let qUser = users[question.author];
-            if (
-              (answered && Object.keys(users[loggedIn].answers).includes(question.id)) ||
-              (!answered && !Object.keys(users[loggedIn].answers).includes(question.id))
-            )
+            if ((answered && Object.keys(users[loggedIn].answers).includes(question.id)) || (!answered && !Object.keys(users[loggedIn].answers).includes(question.id)))
               return (
-                <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
-                  <Card>
-                    <Paper>
-                      <Typography component="h6" variant="h5" align="left" color="text.primary" gutterBottom>
-                        <Avatar
-                          alt="Remy Sharp"
-                          style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }}
-                          src={qUser?.avatarURL}
-                        />
+                // <Container maxWidth="sm" style={{ marginTop: "1rem" }}>
+                //   <Card>
+                //     <Paper>
+                //       <Typography component="h6" variant="h5" align="left" color="text.primary" gutterBottom>
+                //         <Avatar alt="Remy Sharp" style={{ display: "inline-flex", verticalAlign: "middle", marginRight: "0.5rem" }} src={qUser?.avatarURL} />
 
-                        <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{qUser.name}</div>
-                      </Typography>
-                      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                        {question.optionOne.text}
-                      </Typography>
-                      <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-                        <Route to={'/Question/'+question.id} >
-                        <Button variant="outlined">View Question</Button>
-
-                        </Route>
-                      </Stack>
-                    </Paper>
-                  </Card>
-                </Container>
+                //         <div style={{ display: "inline-flex", verticalAlign: "middle" }}>{qUser.name}</div>
+                //       </Typography>
+                //       <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                //         {question.optionOne.text}
+                //       </Typography>
+                //       <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
+                //         <Route to={"/Question/" + question.id}>
+                //           <Button variant="outlined">View Question</Button>
+                //         </Route>
+                //       </Stack>
+                //     </Paper>
+                //   </Card>
+                // </Container>
+                <QuestionView question={question} keyy={k+'mq'} key={k+'mqc'} qUser={qUser} menu={true}/>
               );
           })}
         </Box>
